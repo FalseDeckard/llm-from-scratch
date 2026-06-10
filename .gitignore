@@ -39,3 +39,5 @@ htmlcov/
 # Project-specific
 *.log
 .env
+.mypy_cache
+.ruff_cache
