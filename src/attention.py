@@ -8,7 +8,7 @@ class SelfAttention_v1(nn.Module):
         self.W_query = nn.Parameter(torch.rand(d_in, d_out))
         self.W_key = nn.Parameter(torch.rand(d_in, d_out))
         self.W_value = nn.Parameter(torch.rand(d_in, d_out))
-    
+
     def forward(self, x):
         keys = x @ self.W_key
         values = x @ self.W_value
@@ -54,13 +54,13 @@ class CausalAttention(nn.Module):
                        diagonal=1
                        )
         )
-        
+
     def forward(self, x):
         b, num_tokens, d_in = x.shape
         keys = self.W_key(x)
         values = self.W_value(x)
         queires = self.W_query(x)
-        
+
         attn_scores = queires @ keys.transpose(1, 2)
         attn_scores.masked_fill_(
             self.mask.bool()[:num_tokens, :num_tokens], -torch.inf)
@@ -75,7 +75,7 @@ class CausalAttention(nn.Module):
 class MultiHeadAttention(nn.Module):
     def __init__(self, d_in, d_out,
                  context_length, dropout, num_heads, qkv_bias=False):
-        super().__init__
+        super().__init__()
         assert (d_out % num_heads == 0), \
             "d_out must be divisible by num_heads"
 
@@ -106,7 +106,7 @@ class MultiHeadAttention(nn.Module):
         values = values.transpose(1, 2)
 
         attn_scores = queries @ keys.transpose(2, 3)
-        mask_bool = self.mask.bool()[:num_tokens, :num_tokens] 
+        mask_bool = self.mask.bool()[:num_tokens, :num_tokens]
         attn_scores.masked_fill_(mask_bool, -torch.inf)
 
         attn_weights = torch.softmax(
