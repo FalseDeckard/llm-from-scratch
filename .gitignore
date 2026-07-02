@@ -43,3 +43,5 @@ htmlcov/
 .ruff_cache
 
 gutenberg/
+text/combined_1.txt
+weights/
