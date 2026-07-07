@@ -45,3 +45,4 @@ htmlcov/
 gutenberg/
 text/combined_1.txt
 weights/
+notebooks/gpt2
