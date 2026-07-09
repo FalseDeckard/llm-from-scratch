@@ -4,11 +4,11 @@
 # Code: https://github.com/rasbt/LLMs-from-scratch
 
 
-import json
 import os
 
-import numpy as np
 import requests
+import json
+import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
@@ -39,7 +39,7 @@ def download_and_load_gpt2(model_size, models_dir):
 
     # Load settings and params
     tf_ckpt_path = tf.train.latest_checkpoint(model_dir)
-    settings = json.load(open(os.path.join(model_dir, "hparams.json"), encoding="utf-8"))
+    settings = json.load(open(os.path.join(model_dir, "hparams.json"), "r", encoding="utf-8"))
     params = load_gpt2_params_from_tf_ckpt(tf_ckpt_path, settings)
 
     return settings, params
