@@ -11,6 +11,7 @@ dependencies = [
     "mypy>=1.17.1",
     "nbqa>=1.9.1",
     "numpy>=2.4.6",
+    "pandas>=3.0.3",
     "ruff>=0.12.12",
     "tensorflow>=2.21.0",
     "tiktoken>=0.11.0",
@@ -18,6 +19,13 @@ dependencies = [
     "tqdm>=4.68.3",
     "transformers>=5.12.1",
 ]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["src"]
 
 [tool.black]
 line-length = 100
@@ -27,19 +35,28 @@ skip-string-normalization = true
 [tool.ruff]
 line-length = 100
 target-version = "py311"
-lint.select = [
-  "E","F","W",
-  "I",
-  "UP",
-  "B",
-  "C4",
-  "PERF"
+exclude = [
+    "venv",
+    ".venv",
+    "build",
+    "dist",
+    ".mypy_cache",
+    ".ruff_cache",
 ]
-lint.ignore = [
-  "E203"
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "W",
+    "I",
+    "UP",
+    "B",
+    "C4",
+    "PERF",
 ]
-exclude = ["venv", ".venv", "build", "dist", ".mypy_cache", ".ruff_cache"]
+ignore = ["E203"]
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
-known-first-party = ["llm_from_scratch"]
+known-first-party = ["src"]
